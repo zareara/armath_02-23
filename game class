@@ -1,0 +1,140 @@
+class Game:
+    """
+    Manages the rooms, the player, and the main game loop.
+    """
+    def __init__(self):
+        
+    def create_rooms(self):
+        """
+        Define all rooms, their descriptions, items, and exits.
+        """
+        # Living Room
+        living_room = Room(
+            name="Living Room",
+            description="You are in a cozy living room. A sofa sits by the wall. There's a door to the north."
+        )
+        living_room.items = ["key"]
+
+        # Kitchen
+        kitchen = Room(
+            name="Kitchen",
+            description="A bright kitchen with a table. There's a door to the south back to the living room, and a hallway to the east."
+        )
+        kitchen.items = ["apple"]
+
+        # Hallway
+        hallway = Room(name="Hallway",
+            description="A narrow hallway with a door to the west (kitchen) and another door to the north leading to a locked study."
+        )
+
+        # Study
+        study = Room(
+            name="Study",
+            description="A quiet study with bookshelves lining the walls. There's a locked chest in the corner."
+        )
+
+        # Define exits
+        living_room.add_exit("north", "kitchen")
+        kitchen.add_exit("south", "living_room")
+        kitchen.add_exit("east", "hallway")
+        hallway.add_exit("west", "kitchen")
+        hallway.add_exit("north", "study")
+
+        # Add rooms to the dictionary
+        self.rooms["living_room"] = living_room
+        self.rooms["kitchen"] = kitchen
+        self.rooms["hallway"] = hallway
+        self.rooms["study"] = study
+
+    def play(self):
+        """
+        Main game loop. Continues until the player types 'quit'.
+        """
+        print("Welcome to the Adventure Game!")
+        print("Type 'help' for a list of commands.\n")
+
+        while True:
+            # Show current room description
+            self.describe_current_room()
+
+            # Get user input
+            command = input("> ").strip().lower()
+
+            if command in ["quit", "exit"]:
+                print("Thanks for playing!")
+                break
+            elif command == "help":
+                self.show_help()
+            elif command.startswith("go "):
+                # e.g. "go north"
+            direction = command.split(" ", 1)[1]
+                self.move_player(direction)
+            elif command == "look":
+                self.look_around()
+            elif command.startswith("pick "):
+                # e.g. "pick key"
+                item_name = command.split(" ", 1)[1]
+                self.pick_item(item_name)
+            elif command == "inventory":
+                self.show_inventory()
+            else:
+                print("I don't understand that command. Type 'help' to see available commands.")
+
+    def describe_current_room(self):
+        """Prints the description of the player's current room."""
+        room = self.player.current_room
+        print(f"\nYou are in the {room.name}.")
+        print(room.description)
+
+    def show_help(self):
+        """Prints a list of available commands."""
+        print("""
+Available commands:
+  go [direction]  - Move in a direction (north, south, east, west).
+  look            - Look around the room to see items and exits.
+  pick [item]     - Pick up an item from the room.
+  inventory       - Check the items in your inventory.
+  help            - Show this help message.
+  quit            - Exit the game.
+        """)
+
+    def move_player(self, direction):
+        """Attempts to move the player in the given direction."""
+       
+
+    def look_around(self):
+        """Describes the current room's items and exits."""
+        room = self.player.current_room
+        if room.items:
+            print("You see the following items:")
+            for item in room.items:
+                print(f" - {item}")
+        else:
+            print("You don't see any items here.")
+
+        if room.exits:
+          print("Exits:", ", ".join(room.exits.keys()))
+        else:
+            print("No visible exits.")
+
+    def pick_item(self, item_name):
+        """
+        Player picks up an item if it's in the current room.
+        """
+
+    def show_inventory(self):
+        """Lists all items in the player's inventory."""
+        if self.player.inventory:
+            print("You are carrying:")
+            for item in self.player.inventory:
+                print(f" - {item}")
+        else:
+            print("You are not carrying anything.")
+
+
+def main():
+    game = Game()
+    game.play()
+
+if __name__ == "__main__":
+    main()
