@@ -1,0 +1,20 @@
+class Room:
+    """
+    Represents a location in the game world.
+    """
+    name = ""
+
+    def __init__(self, name, description, items=None):
+        
+
+    def add_exit(self, direction, room_name):
+        """Defines an exit from this room to another."""
+        
+
+    def remove_item(self, item):
+        """Removes an item from the room (if it exists)."""
+        
+
+    def __str__(self):
+        """Returns a string representation of the room (for debugging)."""
+        return f"Room({self.name}, Exits={self.exits}, Items={self.items})"
