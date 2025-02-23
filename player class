@@ -1,0 +1,18 @@
+class Player:
+    """
+    Represents the player, holding their current location and inventory.
+    """
+    def __init__(self, start_room):
+        
+
+    def move_to(self, new_room):
+        """Changes the player's current location."""
+        
+    def pick_item(self, item):
+        """Adds an item to the player's inventory."""
+       
+
+    def __str__(self):
+        """Returns a string representation of the player (for debugging)."""
+        return f"Player(Location={self.current_room.name}, Inventory={self.inventory})"
+
